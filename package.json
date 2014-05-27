@@ -11,8 +11,12 @@
     "url": "https://github.com/.git"
   },
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "raml-parser": "^0.8.7"
+  },
   "devDependencies": {
+    "beefy": "https://registry.npmjs.org/beefy/-/beefy-1.1.0.tgz",
+    "browserify": "^4.1.5",
     "mocha": "1.x",
     "should": "3.x"
   },
