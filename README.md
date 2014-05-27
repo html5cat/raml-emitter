@@ -14,8 +14,17 @@ RAML emitter
 ## Installation
 
 ```bash
-npm install emitter
+npm install raml-emitter
 ```
+
+## Development
+`beefy` is a dev-dependency and allows to run `index.js` in browser with `browserify`:
+```
+./node_modules/beefy/bin/beefy index.js 8080
+```
+You can `--live` for live-reload.
+
+Taken from [Using npm on the client side](http://dontkry.com/posts/code/using-npm-on-the-client-side.html)
 
 ## Test
 
