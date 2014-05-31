@@ -1,0 +1,484 @@
+{
+  "title": "Example",
+  "version": "1",
+  "baseUri": "http://example.com/{version}",
+  "documentation": [
+    {
+      "title": "Welcome",
+      "content": "Welcome to the Example Documentation. The Example API allows you\nto do stuff. See also [example.com](https://www.example.com).\n"
+    },
+    {
+      "title": "Chapter two",
+      "content": "More content here. Including **bold** text!\n"
+    }
+  ],
+  "traits": [
+    {
+      "paged": {
+        "queryParameters": {
+          "page_size": {
+            "description": "The number of items per page",
+            "type": "number",
+            "displayName": "page_size"
+          },
+          "page": {
+            "description": "The page to return",
+            "type": "number",
+            "displayName": "page"
+          }
+        }
+      }
+    }
+  ],
+  "protocols": [
+    "HTTP"
+  ],
+  "resources": [
+    {
+      "description": "This is the top level description for /account.\n* One\n* Two\n* Three\n",
+      "relativeUri": "/account",
+      "methods": [
+        {
+          "description": "Creates a new account. Some **bold** text here.",
+          "body": {
+            "application/json": {
+              "example": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"super_secret\",\n  \"name\": \"John Doe\"\n}\n"
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Account was created and user is now logged in"
+            }
+          },
+          "protocols": [
+            "HTTP"
+          ],
+          "method": "post"
+        }
+      ],
+      "resources": [
+        {
+          "relativeUri": "/find",
+          "methods": [
+            {
+              "description": "find an account",
+              "queryParameters": {
+                "name": {
+                  "description": "name on account",
+                  "required": true,
+                  "example": "Naruto Uzumaki",
+                  "displayName": "name",
+                  "type": "string"
+                },
+                "gender": {
+                  "enum": [
+                    "male",
+                    "female"
+                  ],
+                  "displayName": "gender",
+                  "type": "string"
+                },
+                "number": {
+                  "type": "integer",
+                  "displayName": "number"
+                }
+              },
+              "method": "get"
+            }
+          ],
+          "relativeUriPathSegments": [
+            "find"
+          ]
+        },
+        {
+          "relativeUri": "/{id}",
+          "methods": [
+            {
+              "method": "get"
+            },
+            {
+              "description": "Update the account",
+              "method": "put"
+            },
+            {
+              "description": "Delete the account",
+              "method": "delete"
+            }
+          ],
+          "relativeUriPathSegments": [
+            "{id}"
+          ],
+          "uriParameters": {
+            "id": {
+              "type": "string",
+              "required": true,
+              "displayName": "id"
+            }
+          }
+        },
+        {
+          "relativeUri": "/login",
+          "methods": [
+            {
+              "description": "Login with email and password",
+              "body": {
+                "application/json": {
+                  "example": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"super_secret\"\n}\n"
+                }
+              },
+              "responses": {
+                "200": {
+                  "description": "Login was correct"
+                },
+                "400": {
+                  "description": "Login was incorrect, please try again"
+                }
+              },
+              "method": "post"
+            }
+          ],
+          "relativeUriPathSegments": [
+            "login"
+          ]
+        },
+        {
+          "relativeUri": "/forgot",
+          "methods": [
+            {
+              "description": "Sends an email to the user with a link to set a new password",
+              "body": {
+                "application/json": {
+                  "example": "{\n  \"email\": \"john@example.com\"\n}\n"
+                }
+              },
+              "method": "post"
+            }
+          ],
+          "relativeUriPathSegments": [
+            "forgot"
+          ]
+        },
+        {
+          "relativeUri": "/session",
+          "methods": [
+            {
+              "description": "Gets the sessions",
+              "method": "get"
+            },
+            {
+              "description": "Deletes the session, logging out the user",
+              "method": "delete"
+            }
+          ],
+          "relativeUriPathSegments": [
+            "session"
+          ]
+        }
+      ],
+      "relativeUriPathSegments": [
+        "account"
+      ]
+    },
+    {
+      "description": "This is the top level description for /conversations.",
+      "relativeUri": "/conversations",
+      "methods": [
+        {
+          "description": "Get a list of conversation for the current user",
+          "protocols": [
+            "HTTP"
+          ],
+          "method": "get"
+        },
+        {
+          "description": "Create a new conversions. The currently logged in user doesn't need to be supplied in the members list, it's implied.",
+          "body": {
+            "application/json": {
+              "example": "{\n  \"content\": \"My message!\",\n  \"members\": [1, 2, 3]\n}\n"
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "A conversation with these members already existed, the message was added to that one"
+            },
+            "201": {
+              "description": "The conversation was created and the message added to it"
+            }
+          },
+          "protocols": [
+            "HTTP"
+          ],
+          "method": "post"
+        }
+      ],
+      "resources": [
+        {
+          "relativeUri": "/{convId}",
+          "methods": [
+            {
+              "description": "Get a single conversation including its messages",
+              "method": "get"
+            },
+            {
+              "description": "Update a conversation (change members)",
+              "method": "put"
+            }
+          ],
+          "resources": [
+            {
+              "relativeUri": "/messages",
+              "methods": [
+                {
+                  "queryParameters": {
+                    "page_size": {
+                      "description": "The number of items per page",
+                      "type": "number",
+                      "displayName": "page_size"
+                    },
+                    "page": {
+                      "description": "The page to return",
+                      "type": "number",
+                      "displayName": "page"
+                    }
+                  },
+                  "is": [
+                    "paged"
+                  ],
+                  "description": "Get the messages for the conversation",
+                  "method": "get"
+                },
+                {
+                  "description": "Add a new message to a conversation",
+                  "method": "post"
+                }
+              ],
+              "resources": [
+                {
+                  "relativeUri": "/{messageId}",
+                  "methods": [
+                    {
+                      "description": "Update the message",
+                      "method": "put"
+                    },
+                    {
+                      "description": "Delete the message",
+                      "method": "delete"
+                    }
+                  ],
+                  "relativeUriPathSegments": [
+                    "{messageId}"
+                  ],
+                  "uriParameters": {
+                    "messageId": {
+                      "type": "string",
+                      "required": true,
+                      "displayName": "messageId"
+                    }
+                  }
+                }
+              ],
+              "relativeUriPathSegments": [
+                "messages"
+              ]
+            }
+          ],
+          "relativeUriPathSegments": [
+            "{convId}"
+          ],
+          "uriParameters": {
+            "convId": {
+              "type": "string",
+              "required": true,
+              "displayName": "convId"
+            }
+          }
+        }
+      ],
+      "relativeUriPathSegments": [
+        "conversations"
+      ]
+    },
+    {
+      "relativeUri": "/users",
+      "methods": [
+        {
+          "queryParameters": {
+            "page_size": {
+              "description": "The number of items per page",
+              "type": "number",
+              "displayName": "page_size"
+            },
+            "page": {
+              "description": "The page to return",
+              "type": "number",
+              "displayName": "page"
+            }
+          },
+          "is": [
+            "paged"
+          ],
+          "description": "Get a list of all users",
+          "protocols": [
+            "HTTP"
+          ],
+          "method": "get"
+        },
+        {
+          "description": "Creates a new user",
+          "body": {
+            "application/json": {
+              "example": "{\n  \"email\": \"john@example.com\",\n  \"name\": \"John Doe\",\n}\n"
+            }
+          },
+          "protocols": [
+            "HTTP"
+          ],
+          "method": "post"
+        }
+      ],
+      "resources": [
+        {
+          "relativeUri": "/{userId}",
+          "methods": [
+            {
+              "description": "Get the details of a user including a list of groups he belongs to",
+              "method": "get"
+            },
+            {
+              "description": "Update a user",
+              "method": "put"
+            },
+            {
+              "description": "Deletes a user",
+              "method": "delete"
+            }
+          ],
+          "relativeUriPathSegments": [
+            "{userId}"
+          ],
+          "uriParameters": {
+            "userId": {
+              "type": "string",
+              "required": true,
+              "displayName": "userId"
+            }
+          }
+        }
+      ],
+      "relativeUriPathSegments": [
+        "users"
+      ]
+    },
+    {
+      "relativeUri": "/groups",
+      "methods": [
+        {
+          "description": "Get a list of all the groups",
+          "protocols": [
+            "HTTP"
+          ],
+          "method": "get"
+        },
+        {
+          "description": "Create a new group",
+          "body": {
+            "application/json": {
+              "example": "{\n  \"name\": \"Cool people\",\n  \"members\": [1, 2, 3]\n}\n"
+            }
+          },
+          "protocols": [
+            "HTTP"
+          ],
+          "method": "post"
+        }
+      ],
+      "resources": [
+        {
+          "relativeUri": "/{groupId}",
+          "methods": [
+            {
+              "description": "Get the details of a group, including the member list",
+              "method": "get"
+            },
+            {
+              "description": "Update the group, **optionally** supplying the new list of members (overwrites current list)",
+              "body": {
+                "application/json": {
+                  "example": "{\n  \"name\": \"Cool people\",\n  \"members\": [1, 2, 3]\n}\n"
+                }
+              },
+              "method": "put"
+            },
+            {
+              "description": "Removes the group",
+              "method": "delete"
+            }
+          ],
+          "resources": [
+            {
+              "relativeUri": "/users",
+              "methods": [
+                {
+                  "description": "Adds a user to a group",
+                  "body": {
+                    "application/json": {
+                      "example": "{\n  \"user_id\": 4,\n}\n"
+                    }
+                  },
+                  "method": "post"
+                }
+              ],
+              "resources": [
+                {
+                  "relativeUri": "/{userId}",
+                  "methods": [
+                    {
+                      "description": "Removes a user from a group",
+                      "method": "delete"
+                    }
+                  ],
+                  "relativeUriPathSegments": [
+                    "{userId}"
+                  ],
+                  "uriParameters": {
+                    "userId": {
+                      "type": "string",
+                      "required": true,
+                      "displayName": "userId"
+                    }
+                  }
+                }
+              ],
+              "relativeUriPathSegments": [
+                "users"
+              ]
+            }
+          ],
+          "relativeUriPathSegments": [
+            "{groupId}"
+          ],
+          "uriParameters": {
+            "groupId": {
+              "type": "string",
+              "required": true,
+              "displayName": "groupId"
+            }
+          }
+        }
+      ],
+      "relativeUriPathSegments": [
+        "groups"
+      ]
+    }
+  ],
+  "baseUriParameters": {
+    "version": {
+      "type": "string",
+      "required": true,
+      "displayName": "version",
+      "enum": [
+        "1"
+      ]
+    }
+  }
+}
