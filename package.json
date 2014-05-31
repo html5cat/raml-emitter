@@ -12,6 +12,7 @@
   },
   "main": "index.js",
   "dependencies": {
+    "js-yaml": "^3.0.2",
     "raml-parser": "^0.8.7"
   },
   "devDependencies": {
