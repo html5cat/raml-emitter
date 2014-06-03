@@ -7,11 +7,12 @@ var yaml = require('js-yaml');
 var fs = require('fs');
 
 function emit(ramlObject) {
-  var result = "#%RAML 0.8\n" + yaml.dump(ramlObject);
-
   console.log(ramlObject);
 
-  console.log();
+  var result = "#%RAML 0.8\n" + yaml.dump(ramlObject);
+
+  // document.body.innerHTML = '<pre>'+ JSON.stringify(data, null, 2) + '</pre>';
+  document.body.innerHTML = '<pre>'+ result + '</pre>';
 
   // if not run in browser
   if (! window) {
@@ -24,8 +25,6 @@ function emit(ramlObject) {
     });
   }
 
-  // document.body.innerHTML = '<pre>'+ JSON.stringify(data, null, 2) + '</pre>';
-  document.body.innerHTML = '<pre>'+ result + '</pre>';
 }
 
 raml.loadFile('example.raml').then(
