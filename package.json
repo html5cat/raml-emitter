@@ -1,7 +1,7 @@
 {
   "name": "raml-emitter",
-  "version": "0.8.1",
-  "description": "RAML emitter from object representation",
+  "version": "0.0.0",
+  "description": "[pre-alpha!] RAML emitter from object representation",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec"
   },
