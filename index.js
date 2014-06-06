@@ -18,22 +18,21 @@ function emit(ramlObject) {
 
   raml2html.parseWithConfig(ramlObject, config, function(result) {
       console.log(result);
+
+      fs.writeFile("output.raml", result, function(err) {
+        if(err) {
+            console.log(err);
+        } else {
+            console.log("The file was saved!");
+        }
+      });
+
       return result;
   }, function(error) {
       console.log('Error parsing: ' + error);
       process.exit(1);
   });
 
-  // if not run in browser
-  if (! window) {
-    fs.writeFile("output.raml", result, function(err) {
-      if(err) {
-          console.log(err);
-      } else {
-          console.log("The file was saved!");
-      }
-    });
-  }
 }
 
 raml.loadFile('example.raml').then(
@@ -43,7 +42,5 @@ raml.loadFile('example.raml').then(
   function(error) {
    console.log('Error parsing: ' + error);
   });
-
-
 
 module.exports.emit = emit;
