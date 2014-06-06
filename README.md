@@ -4,7 +4,7 @@ raml-object-to-raml
 Takes a RAML object in JavaScript, specifically having the same structure of the output of the RAML JavaScript parser, and emits properly-formatted RAML (text).
 =======
 
-# raml-emitter
+# [pre-alpha] raml-emitter
 
 [![Build Status](https://travis-ci.org/dybskiy/raml-emitter.svg)](https://travis-ci.org/dybskiy/raml-emitter)
 [![NPM version](https://badge.fury.io/js/raml-emitter.svg)](http://badge.fury.io/js/emitter)
@@ -12,7 +12,13 @@ Takes a RAML object in JavaScript, specifically having the same structure of the
 RAML emitter
 
 ## Installation
-For now please clone repo locally.
+For now please clone repo locally and run
+```bash
+node index.js
+```
+This will take exmaple.raml and convert to ramlObject and then emit it to output.raml and log to console
+Current code is a blend of two approaches I've been taking. There's stuff to fix and whitespace to remove, which will be done asap.
+
 
 Once published to npm, it will be:
 
