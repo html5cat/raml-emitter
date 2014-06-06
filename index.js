@@ -4,10 +4,32 @@
 
 var raml = require('raml-parser');
 var yaml = require('js-yaml');
+var raml2html = require('raml2html');
+
 var fs = require('fs');
 
+
+
 function emit(ramlObject) {
-  console.log(ramlObject);
+  // console.log(ramlObject);
+
+  var template = require('./templates/template.handlebars');
+  var resourceTemplate = require('./templates/resource.handlebars');
+
+  var config = {
+      'template': template,
+      'partials': {
+          'resource': resourceTemplate
+      }
+  };
+
+  raml2html.parseWithConfig(ramlObject, config, function(result) {
+      console.log(result);
+  }, function(error) {
+      console.log('Error parsing: ' + error);
+      process.exit(1);
+  });
+
 
   var result = "#%RAML 0.8\n" + yaml.dump(ramlObject);
 
