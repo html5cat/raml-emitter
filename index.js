@@ -3,19 +3,12 @@
 'use strict';
 
 var raml = require('raml-parser');
-var yaml = require('js-yaml');
 var raml2html = require('raml2html');
-
 var fs = require('fs');
 
-
-
 function emit(ramlObject) {
-  // console.log(ramlObject);
-
   var template = require('./templates/template.handlebars');
   var resourceTemplate = require('./templates/resource.handlebars');
-
   var config = {
       'template': template,
       'partials': {
@@ -25,16 +18,11 @@ function emit(ramlObject) {
 
   raml2html.parseWithConfig(ramlObject, config, function(result) {
       console.log(result);
+      return result;
   }, function(error) {
       console.log('Error parsing: ' + error);
       process.exit(1);
   });
-
-
-  var result = "#%RAML 0.8\n" + yaml.dump(ramlObject);
-
-  // document.body.innerHTML = '<pre>'+ JSON.stringify(data, null, 2) + '</pre>';
-  document.body.innerHTML = '<pre>'+ result + '</pre>';
 
   // if not run in browser
   if (! window) {
@@ -46,7 +34,6 @@ function emit(ramlObject) {
       }
     });
   }
-
 }
 
 raml.loadFile('example.raml').then(

@@ -8,11 +8,10 @@ documentation:
      {{content}}{{/documentation}}
 {{#resources}}
 {{relativeUri}}:
-{{#if description}}
-  description: |
+{{#if description}}  description: |
     {{description}}
 {{/if}}
-{{!-- {{> resource}} --}}
+{{> resource}}
 {{/resources}}
 
 {{!-- TODO: check {{displayName}} field --}}
