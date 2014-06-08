@@ -21,76 +21,55 @@ to do stuff. See also [example.com](https://www.example.com).
 
   post:
     description: Creates a new account. Some **bold** text here.
-    
-    
-    
-      body:
-        
-            application/json
-            
-            
-            
-                example:
-                {
+
+          body:
+application/json
+
+example:{
   &quot;email&quot;: &quot;john@example.com&quot;,
   &quot;password&quot;: &quot;super_secret&quot;,
   &quot;name&quot;: &quot;John Doe&quot;
 }
 
-            
-        
-    
 
-    responses:
-        
-            200
-            description: Account was created and user is now logged in
-            
-            
-        
+
+responses:200
+description: Account was created and user is now logged in
+
+
+
 
 
 
       get:
     description: find an account
+
     
-    
-        queryParameters:
-            
-                    name
-                        
-                            required
-                        
-                        
-                            (string)
-                        
-                description: name on account
-                    
-                    
-                        example:
-                        Naruto Uzumaki
-                    
-            
-                    gender
-                        
-                        
-                            one of (male,female)
-                        
-                description: 
-                    
-                    
-            
-                    number
-                        
-                        
-                            (integer)
-                        
-                description: 
-                    
-                    
-            
-    
-    
+        queryParameters: 
+name
+    required
+
+(string)
+description: name on account
+
+example:Naruto Uzumaki
+
+gender
+
+   one of (male,female)
+
+description: 
+
+
+
+number
+
+(integer)
+description: 
+
+
+
+
 
 
 
@@ -98,35 +77,23 @@ to do stuff. See also [example.com](https://www.example.com).
 
       get:
     description: 
-    
-        URI Parameters
-        
-            id: string
-        
-    
-    
+URI Parameters
+id: string
+
     
 
   put:
     description: Update the account
-    
-        URI Parameters
-        
-            id: string
-        
-    
-    
+URI Parameters
+id: string
+
     
 
   delete:
     description: Delete the account
-    
-        URI Parameters
-        
-            id: string
-        
-    
-    
+URI Parameters
+id: string
+
     
 
 
@@ -135,37 +102,26 @@ to do stuff. See also [example.com](https://www.example.com).
 
       post:
     description: Login with email and password
-    
-    
-    
-      body:
-        
-            application/json
-            
-            
-            
-                example:
-                {
+
+          body:
+application/json
+
+example:{
   &quot;email&quot;: &quot;john@example.com&quot;,
   &quot;password&quot;: &quot;super_secret&quot;
 }
 
-            
-        
-    
 
-    responses:
-        
-            200
-            description: Login was correct
-            
-            
-        
-            400
-            description: Login was incorrect, please try again
-            
-            
-        
+
+responses:200
+description: Login was correct
+
+
+400
+description: Login was incorrect, please try again
+
+
+
 
 
 
@@ -173,23 +129,16 @@ to do stuff. See also [example.com](https://www.example.com).
 
       post:
     description: Sends an email to the user with a link to set a new password
-    
-    
-    
-      body:
-        
-            application/json
-            
-            
-            
-                example:
-                {
+
+          body:
+application/json
+
+example:{
   &quot;email&quot;: &quot;john@example.com&quot;
 }
 
-            
-        
-    
+
+
 
 
 
@@ -197,14 +146,12 @@ to do stuff. See also [example.com](https://www.example.com).
 
       get:
     description: Gets the sessions
-    
-    
+
     
 
   delete:
     description: Deletes the session, logging out the user
-    
-    
+
     
 
 
@@ -218,139 +165,94 @@ to do stuff. See also [example.com](https://www.example.com).
     This is the top level description for /conversations.
   get:
     description: Get a list of conversation for the current user
-    
-    
+
     
 
   post:
     description: Create a new conversions. The currently logged in user doesn&#x27;t need to be supplied in the members list, it&#x27;s implied.
-    
-    
-    
-      body:
-        
-            application/json
-            
-            
-            
-                example:
-                {
+
+          body:
+application/json
+
+example:{
   &quot;content&quot;: &quot;My message!&quot;,
   &quot;members&quot;: [1, 2, 3]
 }
 
-            
-        
-    
 
-    responses:
-        
-            200
-            description: A conversation with these members already existed, the message was added to that one
-            
-            
-        
-            201
-            description: The conversation was created and the message added to it
-            
-            
-        
+
+responses:200
+description: A conversation with these members already existed, the message was added to that one
+
+
+201
+description: The conversation was created and the message added to it
+
+
+
 
 
 
       get:
     description: Get a single conversation including its messages
-    
-        URI Parameters
-        
-            convId: string
-        
-    
-    
+URI Parameters
+convId: string
+
     
 
   put:
     description: Update a conversation (change members)
-    
-        URI Parameters
-        
-            convId: string
-        
-    
-    
+URI Parameters
+convId: string
+
     
 
 
 
       get:
     description: Get the messages for the conversation
+URI Parameters
+convId: string
+
     
-        URI Parameters
-        
-            convId: string
-        
-    
-    
-        queryParameters:
-            
-                    page_size
-                        
-                        
-                            (number)
-                        
-                description: The number of items per page
-                    
-                    
-            
-                    page
-                        
-                        
-                            (number)
-                        
-                description: The page to return
-                    
-                    
-            
-    
-    
+        queryParameters: 
+page_size
+
+(number)
+description: The number of items per page
+
+
+
+page
+
+(number)
+description: The page to return
+
+
+
+
 
   post:
     description: Add a new message to a conversation
-    
-        URI Parameters
-        
-            convId: string
-        
-    
-    
+URI Parameters
+convId: string
+
     
 
 
 
       put:
     description: Update the message
-    
-        URI Parameters
-        
-            convId: string
-        
-            messageId: string
-        
-    
-    
+URI Parameters
+convId: stringmessageId: string
+
     
 
   delete:
     description: Delete the message
-    
-        URI Parameters
-        
-            convId: string
-        
-            messageId: string
-        
-    
-    
+URI Parameters
+convId: stringmessageId: string
+
     
 
 
@@ -366,85 +268,60 @@ to do stuff. See also [example.com](https://www.example.com).
 /users:
   get:
     description: Get a list of all users
+
     
-    
-        queryParameters:
-            
-                    page_size
-                        
-                        
-                            (number)
-                        
-                description: The number of items per page
-                    
-                    
-            
-                    page
-                        
-                        
-                            (number)
-                        
-                description: The page to return
-                    
-                    
-            
-    
-    
+        queryParameters: 
+page_size
+
+(number)
+description: The number of items per page
+
+
+
+page
+
+(number)
+description: The page to return
+
+
+
+
 
   post:
     description: Creates a new user
-    
-    
-    
-      body:
-        
-            application/json
-            
-            
-            
-                example:
-                {
+
+          body:
+application/json
+
+example:{
   &quot;email&quot;: &quot;john@example.com&quot;,
   &quot;name&quot;: &quot;John Doe&quot;,
 }
 
-            
-        
-    
+
+
 
 
 
       get:
     description: Get the details of a user including a list of groups he belongs to
-    
-        URI Parameters
-        
-            userId: string
-        
-    
-    
+URI Parameters
+userId: string
+
     
 
   put:
     description: Update a user
-    
-        URI Parameters
-        
-            userId: string
-        
-    
-    
+URI Parameters
+userId: string
+
     
 
   delete:
     description: Deletes a user
-    
-        URI Parameters
-        
-            userId: string
-        
-    
-    
+URI Parameters
+userId: string
+
     
 
 
@@ -456,121 +333,79 @@ to do stuff. See also [example.com](https://www.example.com).
 /groups:
   get:
     description: Get a list of all the groups
-    
-    
+
     
 
   post:
     description: Create a new group
-    
-    
-    
-      body:
-        
-            application/json
-            
-            
-            
-                example:
-                {
+
+          body:
+application/json
+
+example:{
   &quot;name&quot;: &quot;Cool people&quot;,
   &quot;members&quot;: [1, 2, 3]
 }
 
-            
-        
-    
+
+
 
 
 
       get:
     description: Get the details of a group, including the member list
-    
-        URI Parameters
-        
-            groupId: string
-        
-    
-    
+URI Parameters
+groupId: string
+
     
 
   put:
     description: Update the group, **optionally** supplying the new list of members (overwrites current list)
-    
-        URI Parameters
-        
-            groupId: string
-        
-    
-    
-    
-      body:
-        
-            application/json
-            
-            
-            
-                example:
-                {
+URI Parameters
+groupId: string
+
+          body:
+application/json
+
+example:{
   &quot;name&quot;: &quot;Cool people&quot;,
   &quot;members&quot;: [1, 2, 3]
 }
 
-            
-        
-    
+
+
 
   delete:
     description: Removes the group
-    
-        URI Parameters
-        
-            groupId: string
-        
-    
-    
+URI Parameters
+groupId: string
+
     
 
 
 
       post:
     description: Adds a user to a group
-    
-        URI Parameters
-        
-            groupId: string
-        
-    
-    
-    
-      body:
-        
-            application/json
-            
-            
-            
-                example:
-                {
+URI Parameters
+groupId: string
+
+          body:
+application/json
+
+example:{
   &quot;user_id&quot;: 4,
 }
 
-            
-        
-    
+
+
 
 
 
       delete:
     description: Removes a user from a group
-    
-        URI Parameters
-        
-            groupId: string
-        
-            userId: string
-        
-    
-    
+URI Parameters
+groupId: stringuserId: string
+
     
 
 

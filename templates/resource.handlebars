@@ -1,95 +1,43 @@
 {{#methods}}  {{method}}:
     description: {{description}}
-    {{#if ../allUriParameters}}
-        URI Parameters
-        {{#each ../../allUriParameters}}
-            {{this.displayName}}: {{this.type}}
-        {{/each}}
-    {{/if}}
+{{#if ../allUriParameters}}URI Parameters
+{{#each ../../allUriParameters}}{{this.displayName}}: {{this.type}}{{/each}}
+{{/if}}
     {{#if queryParameters}}
-        queryParameters:
-            {{#each queryParameters}}
-                    {{@key}}
-                        {{#if this.required}}
-                            required
-                        {{/if}}
-                        {{#if this.enum}}
-                            one of ({{this.enum}})
-                        {{else}}
-                            ({{this.type}})
-                        {{/if}}
-                description: {{description}}
-                    {{#if this.schema}}
-                        schema:
-                        {{this.schema}}
-                    {{/if}}
-                    {{#if this.example}}
-                        example:
-                        {{this.example}}
-                    {{/if}}
-            {{/each}}
-    {{/if}}
-    {{#if body}}
-      body:
-        {{#each body}}
-            {{@key}}
-            {{#if formParameters}}
-                formParameters:
-                    {{#each formParameters}}
-                      {{@key}}
-                        {{#if this.required}}
-                            required
-                        {{/if}}
-                        {{#if this.enum}}
-                            one of ({{this.enum}})
-                        {{else}}
-                            ({{this.type}})
-                        {{/if}}
-                    description: {{description}}
-                        {{#if this.schema}}
-                            schema:
-                            {{this.schema}}
-                        {{/if}}
-                        {{#if this.example}}
-                            example:
-                            {{this.example}}
-                        {{/if}}
-                    {{/each}}
-            {{/if}}
-            {{#if this.schema}}
-                schema:
-                {{this.schema}}
-            {{/if}}
-            {{#if this.example}}
-                example:
-                {{this.example}}
-            {{/if}}
-        {{/each}}
-    {{/if}}
-{{#if responses}}
-    responses:{{!-- {{method}}: --}}
-        {{#each responses}}
-            {{@key}}
-            description: {{this.description}}
-            {{#if this.headers}}
-              headers:
-                {{#each this.headers}}
-                {{@key}}: {{this.type}}
-                {{/each}}
-            {{/if}}
-            {{#if this.body}}
-              body:{{#each this.body}}
-                {{@key}}
-                    {{#if this.schema}}
-                        schema:
-                        {{this.schema}}
-                    {{/if}}
-                    {{#if this.example}}
-                        example:{{this.example}}
-                    {{/if}}
-                {{/each}}
-            {{/if}}
-        {{/each}}
+        queryParameters: {{#each queryParameters}}
+{{@key}}
+{{#if this.required}}    required
+{{/if}}
+{{#if this.enum}}   one of ({{this.enum}})
+{{else}}({{this.type}}){{/if}}
+description: {{description}}
+{{#if this.schema}}schema:{{this.schema}}{{/if}}
+{{#if this.example}}example:{{this.example}}{{/if}}
+{{/each}}
+{{/if}}{{#if body}}      body:
+{{#each body}}{{@key}}{{#if formParameters}}
+formParameters:{{#each formParameters}}{{@key}}
+{{#if this.required}}required{{/if}}
+{{#if this.enum}}one of ({{this.enum}}){{else}}({{this.type}}){{/if}}
+description: {{description}}
+{{#if this.schema}}    schema:{{this.schema}}{{/if}}
+{{#if this.example}}    example:{{this.example}}{{/if}}
+{{/each}}
+{{/if}}
+{{#if this.schema}}schema:{{this.schema}}{{/if}}
+{{#if this.example}}example:{{this.example}}{{/if}}
+{{/each}}
+{{/if}}
+{{#if responses}}responses:{{!-- {{method}}: --}}{{#each responses}}{{@key}}
+description: {{this.description}}
+{{#if this.headers}}headers:{{#each this.headers}}{{@key}}: {{this.type}}{{/each}}{{/if}}
+{{#if this.body}}body:{{#each this.body}}
+{{@key}}
+{{#if this.schema}}schema:{{this.schema}}{{/if}}
+{{#if this.example}}example:{{this.example}}{{/if}}
+{{/each}}
+{{/if}}
+{{/each}}
 {{/if}}
 {{/methods}}
 {{#resources}}
