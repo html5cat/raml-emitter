@@ -1,9 +1,10 @@
-{{#methods}}  {{method}}:
+{{#methods}}
+{{method}}:
     description: {{description}}
 {{#if ../allUriParameters}}URI Parameters
 {{#each ../../allUriParameters}}{{this.displayName}}: {{this.type}}{{/each}}
 {{/if}}
-    {{#if queryParameters}}
+{{#if queryParameters}}
         queryParameters: {{#each queryParameters}}
 {{@key}}
 {{#if this.required}}    required
