@@ -1,27 +1,30 @@
 {
-  "name": "raml-emitter",
+  "name": "emit-raml",
   "version": "0.0.0",
-  "description": "[pre-alpha!] RAML emitter from object representation",
+  "description": "[pre-alpha!] Emit RAML from object representation",
+  "main": "emit-raml.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "test": "jshint *.js && istanbul test ./test/test.js cover node_modules/mocha/bin/_mocha -- -R spec"
   },
-  "author": "Yuriy Dybskiy <yuriy@dybskiy.com> (http://dybskiy.com/)",
   "repository": {
     "type": "git",
     "url": "https://github.com/.git"
   },
-  "main": "index.js",
+  "author": {
+    "name": "Yuriy Dybskiy",
+    "email": "yuriy@dybskiy.com",
+    "url": "http://dybskiy.com/"
+  },
   "dependencies": {
-    "handlebars": "^1.3.0",
-    "js-yaml": "^3.0.2",
-    "raml-parser": "^0.8.7",
-    "raml2html": "0.20.0"
+    "js-yaml": "^3.0.2"
   },
   "devDependencies": {
-    "beefy": "https://registry.npmjs.org/beefy/-/beefy-1.1.0.tgz",
+    "raml-parser": "^0.8.7",
+    "istanbul": "^0.2.11",
+    "jshint": "^2.5.1",
+    "mocha": "^1.20.1",
     "browserify": "^4.1.5",
-    "mocha": "1.x",
-    "should": "3.x"
+    "beefy": "https://registry.npmjs.org/beefy/-/beefy-1.1.0.tgz"
   },
   "keywords": [],
   "license": "MIT"

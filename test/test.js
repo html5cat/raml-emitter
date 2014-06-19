@@ -1,10 +1,16 @@
+/* global describe, it */
+var util     = require('util');
+var assert   = require('assert');
+var validate = require('../');
 
-var should = require('should');
+/**
+ * An array of all the tests to execute. Tests are in the format of:
+ * ["params", "object", "valid"]
+ *
+ * @type {Array}
+ */
+var TESTS = [
+];
 
-describe('raml-emitter', function() {
-
-  it('should be awesome', function(done) {
-    done();
-  });
-
+describe('emit-raml', function () {
 });
