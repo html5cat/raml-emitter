@@ -5,19 +5,45 @@
 var raml = require('raml-parser');
 var fs = require('fs');
 
+function traverse (ramlObject, indentLevel) {
+  var i;
+  var str = "";
+  var indentStr = "";
+
+  for (i = 0; i < indentLevel; i++) {
+    indentStr += " ";
+  }
+
+  for (var prop in ramlObject) {
+    if (typeof(ramlObject[prop]) === 'object') {
+      str += indentStr + prop + ":\n"
+      str += traverse(ramlObject[prop], indentLevel + 2);
+    } else {
+      str += indentStr + prop + ": " + ramlObject[prop] + "\n";
+    }
+    console.log(prop);
+  }
+  return str;
+}
+
 function emit(ramlObject) {
-  var result = "";
-  result = JSON.stringify(ramlObject, null, 2);
+  console.log(ramlObject);
+  var result = "#%RAML 0.8\n";
+
+  result += traverse(ramlObject, 0);
+
+  // result = JSON.stringify(ramlObject, null, 2);
 
   return result;
 }
 
+module.exports.emit = emit;
+
+
 raml.loadFile('example.raml').then(
   function (data) {
-    emit(data);
+    document.body.innerHTML = '<pre>'+ emit(data) + '</pre>';
   },
   function(error) {
    console.log('Error parsing: ' + error);
   });
-
-module.exports.emit = emit;
