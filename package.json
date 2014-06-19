@@ -4,7 +4,8 @@
   "description": "[pre-alpha!] Emit RAML from object representation",
   "main": "emit-raml.js",
   "scripts": {
-    "test": "jshint *.js && istanbul test ./test/test.js cover node_modules/mocha/bin/_mocha -- -R spec"
+    "start": "./node_modules/beefy/bin/beefy emit-raml.js 8080",
+    "test": "jshint *.js && istanbul cover node_modules/mocha/bin/_mocha -- -R spec"
   },
   "repository": {
     "type": "git",
@@ -16,14 +17,13 @@
     "url": "http://dybskiy.com/"
   },
   "dependencies": {
+    "raml-parser": "^0.8.7",
     "js-yaml": "^3.0.2"
   },
   "devDependencies": {
-    "raml-parser": "^0.8.7",
     "istanbul": "^0.2.11",
     "jshint": "^2.5.1",
     "mocha": "^1.20.1",
-    "browserify": "^4.1.5",
     "beefy": "https://registry.npmjs.org/beefy/-/beefy-1.1.0.tgz"
   },
   "keywords": [],
