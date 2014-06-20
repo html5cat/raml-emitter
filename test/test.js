@@ -12,7 +12,7 @@ var emit     = require('../');
  * @type {Array}
  */
 var TESTS = [
-  ['example.raml', 'output.raml']
+  ['test/example.raml', 'test/output.raml']
 
 ];
 

@@ -1,9 +1,9 @@
 var raml = require('raml-parser');
 var fs = require('fs');
 
-var emit = require('./');
+var emit = require('../');
 
-raml.loadFile('example.raml').then(
+raml.loadFile('test/example.raml').then(
   function (data) {
     document.body.innerHTML = '<pre>'+ emit(data) + '</pre>';
   },

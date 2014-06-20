@@ -1,12 +1,12 @@
 var raml = require('raml-parser');
 var fs = require('fs');
-var emit = require('./');
+var emit = require('../');
 
-raml.loadFile('example.raml').then(
+raml.loadFile('test/example.raml').then(
   function (data) {
     var result = emit(data);
 
-    fs.writeFile("output.raml", result, function(err) {
+    fs.writeFile("test/output.raml", result, function(err) {
         if(err) {
             console.log(err);
         } else {

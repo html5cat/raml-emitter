@@ -4,8 +4,8 @@
   "description": "[pre-alpha!] Emit RAML from object representation",
   "main": "emit-raml.js",
   "scripts": {
-    "start": "./node_modules/beefy/bin/beefy sample-browser.js 8080",
-    "test": "jshint *.js && node sample-node.js && istanbul cover node_modules/mocha/bin/_mocha -- -R spec"
+    "start": "./node_modules/beefy/bin/beefy test/sample-browser.js 8080",
+    "test": "jshint *.js && node test/sample-node.js && istanbul cover node_modules/mocha/bin/_mocha -- -R spec"
   },
   "repository": {
     "type": "git",
