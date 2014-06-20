@@ -56,9 +56,7 @@ function traverse (ramlObject, indentLevel) {
 }
 
 function emit(ramlObject) {
-  console.log(ramlObject);
   var result = "#%RAML 0.8\n";
-
   result += traverse(ramlObject, 0);
 
   // result = JSON.stringify(ramlObject, null, 2);
