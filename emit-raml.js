@@ -2,9 +2,6 @@
 
 'use strict';
 
-var raml = require('raml-parser');
-var fs = require('fs');
-
 function indentMultiline (string, indent) {
   string = string || "";
   indent = indent || "";
@@ -25,7 +22,7 @@ function traverse (ramlObject, indentLevel) {
 
   for (var prop in ramlObject) {
     if (typeof(ramlObject[prop]) === 'object') {
-      str += indentStr + prop + ":\n"
+      str += indentStr + prop + ":\n";
       str += traverse(ramlObject[prop], indentLevel + 2);
     } else {
       str += indentStr + prop + ": " + indentMultiline(ramlObject[prop], indentStr) + "\n";
@@ -45,13 +42,4 @@ function emit(ramlObject) {
   return result;
 }
 
-module.exports.emit = emit;
-
-
-raml.loadFile('example.raml').then(
-  function (data) {
-    document.body.innerHTML = '<pre>'+ emit(data) + '</pre>';
-  },
-  function(error) {
-   console.log('Error parsing: ' + error);
-  });
+module.exports = emit;

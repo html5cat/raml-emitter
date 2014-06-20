@@ -1,7 +1,7 @@
 /* global describe, it */
 var util     = require('util');
 var assert   = require('assert');
-var validate = require('../');
+var emit = require('../');
 
 /**
  * An array of all the tests to execute. Tests are in the format of:
