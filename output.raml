@@ -1,421 +1,366 @@
 #%RAML 0.8
 title: Example
 version: 1
-baseUri: http://example.com/1
+baseUri: http://example.com/{version}
 documentation:
- - title: Welcome
-   content: |
-     Welcome to the Example Documentation. The Example API allows you
+  0:
+    title: Welcome
+    content: Welcome to the Example Documentation. The Example API allows you
 to do stuff. See also [example.com](https://www.example.com).
- - title: Chapter two
-   content: |
-     More content here. Including **bold** text!
 
+  1:
+    title: Chapter two
+    content: More content here. Including **bold** text!
 
-/account:
-  description: |
-    This is the top level description for /account.
+traits:
+  0:
+    paged:
+      queryParameters:
+        page_size:
+          description: The number of items per page
+          type: number
+          displayName: page_size
+        page:
+          description: The page to return
+          type: number
+          displayName: page
+protocols:
+  0: HTTP
+resources:
+  0:
+    description: This is the top level description for /account.
 * One
 * Two
 * Three
 
-  post:
-    description: Creates a new account. Some **bold** text here.
-
-          body:
-application/json
-
-example:{
-  &quot;email&quot;: &quot;john@example.com&quot;,
-  &quot;password&quot;: &quot;super_secret&quot;,
-  &quot;name&quot;: &quot;John Doe&quot;
+    relativeUri: /account
+    methods:
+      0:
+        description: Creates a new account. Some **bold** text here.
+        body:
+          application/json:
+            example: {
+  "email": "john@example.com",
+  "password": "super_secret",
+  "name": "John Doe"
 }
 
-
-
-responses:200
-description: Account was created and user is now logged in
-
-
-
-
-
-
-      get:
-    description: find an account
-
-    
-        queryParameters: 
-name
-    required
-
-(string)
-description: name on account
-
-example:Naruto Uzumaki
-
-gender
-
-   one of (male,female)
-
-description: 
-
-
-
-number
-
-(integer)
-description: 
-
-
-
-
-
-
-
-
-
-      get:
-    description: 
-URI Parameters
-id: string
-
-    
-
-  put:
-    description: Update the account
-URI Parameters
-id: string
-
-    
-
-  delete:
-    description: Delete the account
-URI Parameters
-id: string
-
-    
-
-
-
-
-
-      post:
-    description: Login with email and password
-
-          body:
-application/json
-
-example:{
-  &quot;email&quot;: &quot;john@example.com&quot;,
-  &quot;password&quot;: &quot;super_secret&quot;
+        responses:
+          200:
+            description: Account was created and user is now logged in
+        protocols:
+          0: HTTP
+        method: post
+    resources:
+      0:
+        relativeUri: /find
+        methods:
+          0:
+            description: find an account
+            queryParameters:
+              name:
+                description: name on account
+                required: true
+                example: Naruto Uzumaki
+                displayName: name
+                type: string
+              gender:
+                enum:
+                  0: male
+                  1: female
+                displayName: gender
+                type: string
+              number:
+                type: integer
+                displayName: number
+            method: get
+        relativeUriPathSegments:
+          0: find
+      1:
+        relativeUri: /{id}
+        methods:
+          0:
+            method: get
+          1:
+            description: Update the account
+            method: put
+          2:
+            description: Delete the account
+            method: delete
+        relativeUriPathSegments:
+          0: {id}
+        uriParameters:
+          id:
+            type: string
+            required: true
+            displayName: id
+      2:
+        relativeUri: /login
+        methods:
+          0:
+            description: Login with email and password
+            body:
+              application/json:
+                example: {
+  "email": "john@example.com",
+  "password": "super_secret"
 }
 
-
-
-responses:200
-description: Login was correct
-
-
-400
-description: Login was incorrect, please try again
-
-
-
-
-
-
-
-
-      post:
-    description: Sends an email to the user with a link to set a new password
-
-          body:
-application/json
-
-example:{
-  &quot;email&quot;: &quot;john@example.com&quot;
+            responses:
+              200:
+                description: Login was correct
+              400:
+                description: Login was incorrect, please try again
+            method: post
+        relativeUriPathSegments:
+          0: login
+      3:
+        relativeUri: /forgot
+        methods:
+          0:
+            description: Sends an email to the user with a link to set a new password
+            body:
+              application/json:
+                example: {
+  "email": "john@example.com"
 }
 
-
-
-
-
-
-
-
-      get:
-    description: Gets the sessions
-
-    
-
-  delete:
-    description: Deletes the session, logging out the user
-
-    
-
-
-
-
-
-
-
-/conversations:
-  description: |
-    This is the top level description for /conversations.
-  get:
-    description: Get a list of conversation for the current user
-
-    
-
-  post:
-    description: Create a new conversions. The currently logged in user doesn&#x27;t need to be supplied in the members list, it&#x27;s implied.
-
-          body:
-application/json
-
-example:{
-  &quot;content&quot;: &quot;My message!&quot;,
-  &quot;members&quot;: [1, 2, 3]
+            method: post
+        relativeUriPathSegments:
+          0: forgot
+      4:
+        relativeUri: /session
+        methods:
+          0:
+            description: Gets the sessions
+            method: get
+          1:
+            description: Deletes the session, logging out the user
+            method: delete
+        relativeUriPathSegments:
+          0: session
+    relativeUriPathSegments:
+      0: account
+  1:
+    description: This is the top level description for /conversations.
+    relativeUri: /conversations
+    methods:
+      0:
+        description: Get a list of conversation for the current user
+        protocols:
+          0: HTTP
+        method: get
+      1:
+        description: Create a new conversions. The currently logged in user doesn't need to be supplied in the members list, it's implied.
+        body:
+          application/json:
+            example: {
+  "content": "My message!",
+  "members": [1, 2, 3]
 }
 
-
-
-responses:200
-description: A conversation with these members already existed, the message was added to that one
-
-
-201
-description: The conversation was created and the message added to it
-
-
-
-
-
-
-      get:
-    description: Get a single conversation including its messages
-URI Parameters
-convId: string
-
-    
-
-  put:
-    description: Update a conversation (change members)
-URI Parameters
-convId: string
-
-    
-
-
-
-      get:
-    description: Get the messages for the conversation
-URI Parameters
-convId: string
-
-    
-        queryParameters: 
-page_size
-
-(number)
-description: The number of items per page
-
-
-
-page
-
-(number)
-description: The page to return
-
-
-
-
-
-  post:
-    description: Add a new message to a conversation
-URI Parameters
-convId: string
-
-    
-
-
-
-      put:
-    description: Update the message
-URI Parameters
-convId: stringmessageId: string
-
-    
-
-  delete:
-    description: Delete the message
-URI Parameters
-convId: stringmessageId: string
-
-    
-
-
-
-
-
-
-
-
-
-
-
-/users:
-  get:
-    description: Get a list of all users
-
-    
-        queryParameters: 
-page_size
-
-(number)
-description: The number of items per page
-
-
-
-page
-
-(number)
-description: The page to return
-
-
-
-
-
-  post:
-    description: Creates a new user
-
-          body:
-application/json
-
-example:{
-  &quot;email&quot;: &quot;john@example.com&quot;,
-  &quot;name&quot;: &quot;John Doe&quot;,
+        responses:
+          200:
+            description: A conversation with these members already existed, the message was added to that one
+          201:
+            description: The conversation was created and the message added to it
+        protocols:
+          0: HTTP
+        method: post
+    resources:
+      0:
+        relativeUri: /{convId}
+        methods:
+          0:
+            description: Get a single conversation including its messages
+            method: get
+          1:
+            description: Update a conversation (change members)
+            method: put
+        resources:
+          0:
+            relativeUri: /messages
+            methods:
+              0:
+                queryParameters:
+                  page_size:
+                    description: The number of items per page
+                    type: number
+                    displayName: page_size
+                  page:
+                    description: The page to return
+                    type: number
+                    displayName: page
+                is:
+                  0: paged
+                description: Get the messages for the conversation
+                method: get
+              1:
+                description: Add a new message to a conversation
+                method: post
+            resources:
+              0:
+                relativeUri: /{messageId}
+                methods:
+                  0:
+                    description: Update the message
+                    method: put
+                  1:
+                    description: Delete the message
+                    method: delete
+                relativeUriPathSegments:
+                  0: {messageId}
+                uriParameters:
+                  messageId:
+                    type: string
+                    required: true
+                    displayName: messageId
+            relativeUriPathSegments:
+              0: messages
+        relativeUriPathSegments:
+          0: {convId}
+        uriParameters:
+          convId:
+            type: string
+            required: true
+            displayName: convId
+    relativeUriPathSegments:
+      0: conversations
+  2:
+    relativeUri: /users
+    methods:
+      0:
+        queryParameters:
+          page_size:
+            description: The number of items per page
+            type: number
+            displayName: page_size
+          page:
+            description: The page to return
+            type: number
+            displayName: page
+        is:
+          0: paged
+        description: Get a list of all users
+        protocols:
+          0: HTTP
+        method: get
+      1:
+        description: Creates a new user
+        body:
+          application/json:
+            example: {
+  "email": "john@example.com",
+  "name": "John Doe",
 }
 
-
-
-
-
-
-      get:
-    description: Get the details of a user including a list of groups he belongs to
-URI Parameters
-userId: string
-
-    
-
-  put:
-    description: Update a user
-URI Parameters
-userId: string
-
-    
-
-  delete:
-    description: Deletes a user
-URI Parameters
-userId: string
-
-    
-
-
-
-
-
-
-
-/groups:
-  get:
-    description: Get a list of all the groups
-
-    
-
-  post:
-    description: Create a new group
-
-          body:
-application/json
-
-example:{
-  &quot;name&quot;: &quot;Cool people&quot;,
-  &quot;members&quot;: [1, 2, 3]
+        protocols:
+          0: HTTP
+        method: post
+    resources:
+      0:
+        relativeUri: /{userId}
+        methods:
+          0:
+            description: Get the details of a user including a list of groups he belongs to
+            method: get
+          1:
+            description: Update a user
+            method: put
+          2:
+            description: Deletes a user
+            method: delete
+        relativeUriPathSegments:
+          0: {userId}
+        uriParameters:
+          userId:
+            type: string
+            required: true
+            displayName: userId
+    relativeUriPathSegments:
+      0: users
+  3:
+    relativeUri: /groups
+    methods:
+      0:
+        description: Get a list of all the groups
+        protocols:
+          0: HTTP
+        method: get
+      1:
+        description: Create a new group
+        body:
+          application/json:
+            example: {
+  "name": "Cool people",
+  "members": [1, 2, 3]
 }
 
-
-
-
-
-
-      get:
-    description: Get the details of a group, including the member list
-URI Parameters
-groupId: string
-
-    
-
-  put:
-    description: Update the group, **optionally** supplying the new list of members (overwrites current list)
-URI Parameters
-groupId: string
-
-          body:
-application/json
-
-example:{
-  &quot;name&quot;: &quot;Cool people&quot;,
-  &quot;members&quot;: [1, 2, 3]
+        protocols:
+          0: HTTP
+        method: post
+    resources:
+      0:
+        relativeUri: /{groupId}
+        methods:
+          0:
+            description: Get the details of a group, including the member list
+            method: get
+          1:
+            description: Update the group, **optionally** supplying the new list of members (overwrites current list)
+            body:
+              application/json:
+                example: {
+  "name": "Cool people",
+  "members": [1, 2, 3]
 }
 
-
-
-
-  delete:
-    description: Removes the group
-URI Parameters
-groupId: string
-
-    
-
-
-
-      post:
-    description: Adds a user to a group
-URI Parameters
-groupId: string
-
-          body:
-application/json
-
-example:{
-  &quot;user_id&quot;: 4,
+            method: put
+          2:
+            description: Removes the group
+            method: delete
+        resources:
+          0:
+            relativeUri: /users
+            methods:
+              0:
+                description: Adds a user to a group
+                body:
+                  application/json:
+                    example: {
+  "user_id": 4,
 }
 
-
-
-
-
-
-      delete:
-    description: Removes a user from a group
-URI Parameters
-groupId: stringuserId: string
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
+                method: post
+            resources:
+              0:
+                relativeUri: /{userId}
+                methods:
+                  0:
+                    description: Removes a user from a group
+                    method: delete
+                relativeUriPathSegments:
+                  0: {userId}
+                uriParameters:
+                  userId:
+                    type: string
+                    required: true
+                    displayName: userId
+            relativeUriPathSegments:
+              0: users
+        relativeUriPathSegments:
+          0: {groupId}
+        uriParameters:
+          groupId:
+            type: string
+            required: true
+            displayName: groupId
+    relativeUriPathSegments:
+      0: groups
+baseUriParameters:
+  version:
+    type: string
+    required: true
+    displayName: version
+    enum:
+      0: 1
