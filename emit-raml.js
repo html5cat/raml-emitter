@@ -5,9 +5,12 @@
 var raml = require('raml-parser');
 var fs = require('fs');
 
-function indentMultiline (str, indentStr) {
-  indentStr = indentStr || "";
-  return str.replace(/\n/gm, "\n" + indentStr);
+function indentMultiline (string, indent) {
+  string = string || "";
+  indent = indent || "";
+  // console.log(str.replace(/\n/g, "\n" + indentStr));
+  // string.replace("\n", "\n" + indent, "g");
+  return string;
 }
 
 function traverse (ramlObject, indentLevel) {
@@ -26,7 +29,6 @@ function traverse (ramlObject, indentLevel) {
       str += traverse(ramlObject[prop], indentLevel + 2);
     } else {
       str += indentStr + prop + ": " + indentMultiline(ramlObject[prop], indentStr) + "\n";
-      console.log(prop);
     }
   }
   return str;
