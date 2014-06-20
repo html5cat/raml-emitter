@@ -14,8 +14,13 @@ RAML emitter
 ## Installation
 For now please clone repo locally and run
 ```bash
-node index.js
+npm start
 ```
+or
+```bash
+node sample-browser.js
+```
+
 This will take `exmaple.raml` and convert to `ramlObject` and then emit it to `output.raml` and log to console.
 
 Current code is a blend of two approaches I've been taking. There's stuff to fix and whitespace to remove, which will be done asap.
@@ -30,7 +35,7 @@ npm install raml-emitter
 ## Development
 `beefy` is a dev-dependency and allows to run `index.js` in browser with `browserify`:
 ```
-./node_modules/beefy/bin/beefy index.js 8080
+npm start
 ```
 You can `--live` for live-reload.
 
