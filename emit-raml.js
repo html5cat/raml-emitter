@@ -10,6 +10,10 @@ function indentMultiline (string, indent) {
   return string;
 }
 
+function indentLists (el) {
+  return " - " + traverse(el, indentLevel + 3);
+}
+
 function traverse (ramlObject, indentLevel) {
   var i;
   var str = "";
@@ -30,11 +34,8 @@ function traverse (ramlObject, indentLevel) {
 
         case "documentation":
           str += indentStr + prop + ":\n";
-          ramlObject[prop].forEach(function (el) {
-            str += " - ";
-            str += traverse(el, indentLevel + 3);
-          });
-
+          str += ramlObject[prop].map(indentLists, indentLevel);
+        break;
 
         default:
           str += indentStr + prop + ": " + indentMultiline(ramlObject[prop], indentStr) + "\n";
