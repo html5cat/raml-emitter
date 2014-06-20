@@ -7,12 +7,12 @@ var emit     = require('../');
 
 /**
  * An array of all the tests to execute. Tests are in the format of:
- * ["params", "object", "valid"]
+ * ["sourceRaml.raml", "outputRaml.raml"]
  *
  * @type {Array}
  */
 var TESTS = [
-  ['example.json', 'output.raml']
+  ['example.raml', 'output.raml']
 
 ];
 
@@ -25,22 +25,8 @@ describe('emit-raml', function () {
     var sourceFile = test[0];
     var outputFile = test[1];
 
-    fs.readFile(sourceFile, 'utf8', function (err,data) {
-      if (err) {
-        return console.log(err);
-      }
-      source = data;
-
-      fs.readFile(outputFile, 'utf8', function (err,data) {
-        if (err) {
-          return console.log(err);
-        }
-        output = data;
-        console.log(source);
-        console.log(output);
-      });
-    });
-
+    source = fs.readFileSync(sourceFile).toString();
+    output = fs.readFileSync(outputFile).toString();
 
     var description = [
       util.inspect(sourceFile),
