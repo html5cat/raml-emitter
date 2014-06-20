@@ -21,12 +21,25 @@ function traverse (ramlObject, indentLevel) {
   }
 
   for (var prop in ramlObject) {
-    if (typeof(ramlObject[prop]) === 'object') {
-      str += indentStr + prop + ":\n";
-      str += traverse(ramlObject[prop], indentLevel + 2);
-    } else {
-      str += indentStr + prop + ": " + indentMultiline(ramlObject[prop], indentStr) + "\n";
-    }
+    // if (typeof(ramlObject[prop]) === 'object') {
+    //   str += indentStr + prop + ":\n";
+    //   str += traverse(ramlObject[prop], indentLevel + 2);
+    // } else {
+
+      switch (prop) {
+
+        case "documentation":
+          str += indentStr + prop + ":\n";
+          ramlObject[prop].forEach(function (el) {
+            str += " - ";
+            str += traverse(el, indentLevel + 3);
+          });
+
+
+        default:
+          str += indentStr + prop + ": " + indentMultiline(ramlObject[prop], indentStr) + "\n";
+      }
+    // }
   }
   return str;
 }
