@@ -10,9 +10,9 @@ function indentMultiline (string, indent) {
   return string;
 }
 
-function indentLists (el) {
-  return " - " + traverse(el, indentLevel + 3);
-}
+// function indentLists (el) {
+//   return " - " + traverse(el, indentLevel + 3);
+// }
 
 function traverse (ramlObject, indentLevel) {
   var i;
@@ -25,23 +25,33 @@ function traverse (ramlObject, indentLevel) {
   }
 
   for (var prop in ramlObject) {
-    // if (typeof(ramlObject[prop]) === 'object') {
-    //   str += indentStr + prop + ":\n";
-    //   str += traverse(ramlObject[prop], indentLevel + 2);
-    // } else {
-
-      switch (prop) {
-
-        case "documentation":
-          str += indentStr + prop + ":\n";
-          str += ramlObject[prop].map(indentLists, indentLevel);
-        break;
-
-        default:
-          str += indentStr + prop + ": " + indentMultiline(ramlObject[prop], indentStr) + "\n";
-      }
-    // }
+    if (typeof(ramlObject[prop]) === 'object') {
+      str += indentStr + prop + ":\n";
+      str += traverse(ramlObject[prop], indentLevel + 2);
+    } else {
+      str += indentStr + prop + ": " + indentMultiline(ramlObject[prop], indentStr) + "\n";
+    }
   }
+
+  // for (var prop in ramlObject) {
+  //   // if (typeof(ramlObject[prop]) === 'object') {
+  //   //   str += indentStr + prop + ":\n";
+  //   //   str += traverse(ramlObject[prop], indentLevel + 2);
+  //   // } else {
+
+  //     switch (prop) {
+
+  //       case "documentation":
+  //         str += indentStr + prop + ":\n";
+  //         str += ramlObject[prop].map(indentLists, indentLevel);
+  //       break;
+
+  //       default:
+  //         str += indentStr + prop + ": " + indentMultiline(ramlObject[prop], indentStr) + "\n";
+  //     }
+  //   // }
+  // }
+
   return str;
 }
 
