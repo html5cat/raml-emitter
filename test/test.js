@@ -16,6 +16,10 @@ var TESTS = [
 
 ];
 
+/**
+ * NOTE: if comparison fails fall back to comparing objects
+ */
+
 describe('emit-raml', function () {
   /**
    * Run through each of the defined tests to generate the test suite.
